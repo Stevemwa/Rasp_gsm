@@ -2,7 +2,7 @@
 use gsm module to send messages, get gps location and send data via gprs
 to use :
 1)cd /path/to/your/desired/directory
-2)git clone
+2)git clone https://github.com/Stevemwa/Rasp_gsm/blob/906c9a2102cefd5390ee31cd6d628c2672a2e3c4/gsm.py
 3) create your main file i.e send_messages.py
 4) Add the script below:
    
