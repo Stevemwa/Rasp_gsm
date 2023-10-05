@@ -1,9 +1,10 @@
 # Rasp_gsm
 use gsm module to send messages, get gps location and send data via gprs
 to use :
-1) git clone
-2) create your main file i.e send_messages.py
-3) Add the script below:
+1)cd /path/to/your/desired/directory
+2)git clone
+3) create your main file i.e send_messages.py
+4) Add the script below:
    
 from gsm import GSM
 import time
