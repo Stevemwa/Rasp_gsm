@@ -14,19 +14,24 @@ class GSM:
     def send_command(self, command):
         self.serial_port.write(command.encode() + b'\r')
 
-    def read_response(self):
+    def read_response(self, timeout=3):
         response = b''
+        start_time = time.time()
+
         while True:
             char = self.serial_port.read(1)
             response += char
-            if char == b'\n' or char == b'':
-                break
-        return response.decode().strip()
 
-    def wait_for_response(self):
-        response = self.read_response()
-        while not response:
-            response = self.read_response()
+            if char == b'\n' or char == b'' or (time.time() - start_time) > timeout:
+                break
+
+            return response.decode().strip()
+
+    def wait_for_response(self, timeout=3):
+        response = self.read_response(timeout)
+        start_time = time.time()
+        while not response and (time.time() - start_time) <= timeout:
+            response = self.read_response(timeout)
             time.sleep(1)
         return response
 
@@ -49,7 +54,7 @@ class GSM:
         self.send_command('AT+CMGF=1')
         #self.wait_for_response()
         time.sleep(3)
-        print("sent message")
+        print("selected message mode")
         
         self.send_command('AT+CMGS="' + recipient + '"')
 
@@ -95,11 +100,15 @@ class GSM:
         time.sleep(1)
         self.send_command('AT+CGPSRST=0')  # Cold start GPS
         time.sleep(1)
-        self.send_command('AT+GPS=1') 
+        self.send_command('AT+CGPSSTATUS?') 
+        response = self.wait_for_response()
+        print("status check response: " + response)
+        # self.send_command('AT+GPS=1') 
 
         while True:
             self.send_command('AT+CGPSINFO')
             response = self.wait_for_response()
+            print(response)
             if response.startswith('+CGPSINFO:'):
                 data = response.split(': ')[1].split(',')
                 if len(data) >= 4:
@@ -107,6 +116,7 @@ class GSM:
                     longitude = data[1]
                     altitude = data[3]
                     coordinates = "Latitude: " + str(latitude) + ", Longitude: " + str(longitude) + ", Altitude: " + str(altitude)
+                    print(coordinates)
                     return coordinates
                     time.sleep(2)  # Update GPS data every 10 seconds
 
