@@ -3,25 +3,27 @@ Use of a  gsm sim module to send messages, get gps location and send data via gp
 Applicable in making a tracking device or remote controlling of the raspberry pi or a security system.
 to use :
 
-1)cd /path/to/your/desired/directory
+1) cd ``` /path/to/your/desired/directory```
 
 
-2)git clone https://github.com/Stevemwa/Rasp_gsm/blob/906c9a2102cefd5390ee31cd6d628c2672a2e3c4/gsm.py
+2) clone the repository
+```     
+git clone https://github.com/Stevemwa/Rasp_gsm/blob/906c9a2102cefd5390ee31cd6d628c2672a2e3c4/gsm.py
+```
 
-
-3) create your main file i.e send_messages.py
+3) create your main file i.e ```send_messages.py```
 
    
 5) Add the script below:
    
- <br>  </br>
-<br>from gsm import GSM </br>
-<br>import time </br>
+```python
+from gsm import GSM
+import time
 
-<br>if __name__ == "__main__": </br>
-   <br> gsm = GSM("/dev/ttyS0", 9600, None) </br>
-    <br>gsm.send_text("+123456789", "Hi can we meet outside CE now!")  </br>
-    <br>time.sleep(5) </br>
-    <br>gsm.send_text("+123456789", "I can now send you a message") </br>
+if __name__ == "__main__": 
+    gsm = GSM("/dev/ttyS0", 9600, None)
+    gsm.send_text("+123456789", "Hi can we meet outside CE now!")
+    time.sleep(5)
+    gsm.send_text("+123456789", "I can now send you a message")
     
-    
+```
