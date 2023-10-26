@@ -24,6 +24,7 @@ if __name__ == "__main__":
     gsm = GSM("/dev/ttyS0", 9600, None)
     gsm.send_text("+123456789", "Hi can we meet outside CE now!")
     time.sleep(5)
-    gsm.send_text("+123456789", "I can now send you a message")
+    coordinates=gsm.get_gps_coordinates()
+    gsm.send_text("+123456789", coordinates)
     
 ```
