@@ -8,7 +8,7 @@ to use :
 
 2) clone the repository
 ```     
-git clone https://github.com/Stevemwa/Rasp_gsm/blob/906c9a2102cefd5390ee31cd6d628c2672a2e3c4/gsm.py
+git clone https://github.com/Stevemwa/Rasp_gsm.git
 ```
 
 3) create your main file i.e ```send_messages.py```
